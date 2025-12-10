@@ -5,9 +5,12 @@
 package com.mycompany.integradorpa2.controller;
 
 import com.mycompany.integradorpa2.logica.Familia;
+import com.mycompany.integradorpa2.logica.Gato;
+import com.mycompany.integradorpa2.logica.enums.TipoAdopcion;
 import com.mycompany.integradorpa2.service.AdopcionService;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -24,22 +27,17 @@ public class FamiliaAdoptarServlet extends HttpServlet {
     private final AdopcionService adopcionService = new AdopcionService();
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
-        // Obtener familia logueada
-        Familia f = (Familia) request.getSession().getAttribute("usuarioLogueado");
-
-        if (f == null) {
-            response.sendRedirect("login.jsp");
-            return;
+        try {
+            List<Gato> gatos = adopcionService.listarGatosDisponibles();
+            req.setAttribute("listaGatos", gatos);
+        } catch (Exception e) {
+            req.setAttribute("error", e.getMessage());
         }
 
-        // Lista de gatos disponibles
-        request.setAttribute("listaGatos", adopcionService.listarGatosDisponibles());
-
-        // Enviar al JSP
-        request.getRequestDispatcher("/familia-adoptar.jsp")
-                .forward(request, response);
+        req.getRequestDispatcher("/familia-adoptar.jsp").forward(req, resp);
     }
 }
+

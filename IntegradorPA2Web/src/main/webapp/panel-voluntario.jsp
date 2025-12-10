@@ -1,17 +1,33 @@
-<%-- 
-    Document   : panel-voluntario
-    Created on : 10 dic 2025, 12:51:18 p. m.
-    Author     : Usuario
---%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="com.mycompany.integradorpa2.logica.Voluntario" %>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    Voluntario vol = (Voluntario) session.getAttribute("usuarioLogueado");
+
+    if (vol == null) {
+        response.sendRedirect("login.jsp");
+        return;
+    }
+%>
+
+
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <h1>Hello World!</h1>
-    </body>
+<head>
+    <meta charset="UTF-8">
+    <title>Panel Voluntario</title>
+</head>
+
+<body>
+<h1>Panel del Voluntario</h1>
+<p>Bienvenido, <%= vol.getNombre() %></p>
+
+<ul>
+    <li><a href="VoluntarioRegistrarGatoServlet">Registrar gato</a></li>
+    <li><a href="VoluntarioTareasServlet?action=menu">Gestionar tareas</a></li>
+    <li><a href="VoluntarioAsignarGatoServlet">Asignar gatos</a></li>
+    <li><a href="LogoutServlet">Salir</a></li>
+</ul>
+
+</body>
 </html>
