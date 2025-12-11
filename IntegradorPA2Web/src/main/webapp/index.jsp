@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <title>Dashboard - Colonia de Gatos</title>
+    <title>Happy Paws - Colonia de Gatos Callejeros</title>
 
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
     <link href="css/styles.css" rel="stylesheet" />
@@ -14,22 +14,24 @@
     <style>
         .dash-img {
             width: 100%;
-            height: 220px;
+            height: 260px;
             object-fit: cover;
-            border-radius: 10px;
-            margin-bottom: 15px;
-        }
-
-        .dash-card {
-            cursor: pointer;
-            border-radius: 10px;
-            text-align: center;
+            border-radius: 12px;
+            margin-bottom: 25px;
         }
 
         .row-center {
             display: flex;
             justify-content: center;
-            gap: 40px;
+            gap: 60px;
+            margin-top: 40px;
+        }
+
+        .action-btn {
+            width: 220px;
+            height: 55px;
+            font-size: 18px;
+            border-radius: 10px;
         }
     </style>
 </head>
@@ -49,8 +51,8 @@
 
                         <div class="sb-sidenav-menu-heading">Panel</div>
                         <a class="nav-link" href="index.jsp">
-                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                            Dashboard
+                            <div class="sb-nav-link-icon"><i class="fas fa-paw"></i></div>
+                            Inicio
                         </a>
 
                         <div class="sb-sidenav-menu-heading">Opciones</div>
@@ -72,44 +74,33 @@
         <div id="layoutSidenav_content">
             <main class="container-fluid px-4">
 
-                <h1 class="mt-4">Dashboard</h1>
+                <h1 class="mt-4">Happy Paws</h1>
                 <ol class="breadcrumb mb-4">
-                    <li class="breadcrumb-item active">Panel Principal</li>
+                    <li class="breadcrumb-item active">Colonia de gatos callejeros</li>
                 </ol>
 
-                <!-- TARJETAS CENTRADAS -->
+                <!-- IMÁGENES GRANDES -->
                 <div class="row row-center">
-
-                    <!-- Gatos Registrados -->
-                    <div class="col-xl-3 col-md-4 text-center">
+                    <div class="col-xl-4 col-md-5 text-center">
                         <img src="img/gatitos4.jpg" class="dash-img">
-
-                        <div class="card bg-primary text-white mb-4 dash-card"
-                             onclick="location.href='<%= request.getContextPath() %>/GatosRegistradosServlet'">
-                            <div class="card-body">Gatos Registrados</div>
-                        </div>
                     </div>
 
-                    <!-- Adopciones -->
-                    <div class="col-xl-3 col-md-4 text-center">
+                    <div class="col-xl-4 col-md-5 text-center">
                         <img src="img/gatitos5.jpg" class="dash-img">
-
-                        <div class="card bg-success text-white mb-4 dash-card"
-                             onclick="location.href='<%= request.getContextPath() %>/AdopcionesServlet'">
-                            <div class="card-body">Adopciones</div>
-                        </div>
                     </div>
+                </div>
 
-                    <!-- Veterinarios Activos -->
-                    <div class="col-xl-3 col-md-4 text-center">
-                        <img src="img/gatitos6.jpg" class="dash-img">
+                <!-- BOTONES PRINCIPALES -->
+                <div class="row row-center mt-4">
+                    <button class="btn btn-primary action-btn"
+                        onclick="location.href='<%= request.getContextPath() %>/LoginServlet'">
+                        Iniciar Sesión
+                    </button>
 
-                        <div class="card bg-danger text-white mb-4 dash-card"
-                             onclick="location.href='<%= request.getContextPath() %>/VeterinariosActivosServlet'">
-                            <div class="card-body">Veterinarios Activos</div>
-                        </div>
-                    </div>
-
+                    <button class="btn btn-success action-btn"
+                        onclick="location.href='<%= request.getContextPath() %>/RegisterServlet'">
+                        Registrarse
+                    </button>
                 </div>
 
             </main>
