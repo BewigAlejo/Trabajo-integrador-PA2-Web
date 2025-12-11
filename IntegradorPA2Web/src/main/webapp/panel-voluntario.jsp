@@ -26,6 +26,7 @@
     <li><a href="VoluntarioRegistrarGatoServlet">Registrar gato</a></li>
     <li><a href="VoluntarioTareasServlet?action=menu">Gestionar tareas</a></li>
     <li><a href="VoluntarioAsignarGatoServlet">Asignar gatos</a></li>
+    <li><a href="panel-reportes.jsp">Reportes</a></li>
     <li><a href="LogoutServlet">Salir</a></li>
 </ul>
 
