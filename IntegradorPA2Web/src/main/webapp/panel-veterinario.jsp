@@ -1,17 +1,28 @@
-<%-- 
-    Document   : panel-veterinario
-    Created on : 10 dic 2025, 12:50:53â€¯p.Â m.
-    Author     : Usuario
---%>
+<%@ page import="com.mycompany.integradorpa2.logica.Veterinario" %>
+<%
+    Veterinario vet = (Veterinario) session.getAttribute("usuarioLogueado");
+    if (vet == null) {
+        response.sendRedirect("login.jsp");
+        return;
+    }
+%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <h1>Hello World!</h1>
-    </body>
+<head>
+    <meta charset="UTF-8">
+    <title>Panel Veterinario</title>
+</head>
+<body>
+
+<h1>Bienvenido, <%= vet.getNombre() %></h1>
+
+<ul>
+    <li><a href="VeterinarioConsultaServlet">Generar consulta médica</a></li>
+    <li><a href="VeterinarioHistorialServlet">Consultar historial médico</a></li>
+</ul>
+
+<a href="login.jsp">Salir</a>
+
+</body>
 </html>

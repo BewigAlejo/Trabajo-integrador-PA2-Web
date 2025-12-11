@@ -20,7 +20,6 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Cuando entren directo al servlet por GET, los mando al login
         response.sendRedirect("login.jsp");
     }
 
@@ -67,10 +66,9 @@ public class LoginServlet extends HttpServlet {
 
                     if (opt.isPresent()) {
                         Veterinario v = opt.get();
-                        // guardamos en sesión para usarlo en los paneles
                         sesion.setAttribute("usuarioLogueado", v);
                         sesion.setAttribute("rol", "VETERINARIO");
-                        destino = "panel-veterinario.jsp";  // JSP que vos crees
+                        destino = "panel-veterinario.jsp";  
                         loginOk = true;
                     } else {
                         request.setAttribute("error", "Credenciales inválidas para Veterinario.");
@@ -103,7 +101,7 @@ public class LoginServlet extends HttpServlet {
                         sesion.setAttribute("usuarioLogueado", f);
                         sesion.setAttribute("rol", "FAMILIA");
 
-                        destino = "panel-familia.jsp";  // 🚀 ACÁ y nada más
+                        destino = "panel-familia.jsp";  
                         loginOk = true;
                     } else {
                         request.setAttribute("error", "Credenciales inválidas para Familia.");
