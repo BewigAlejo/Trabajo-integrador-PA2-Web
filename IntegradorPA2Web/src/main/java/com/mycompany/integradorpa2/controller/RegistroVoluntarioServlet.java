@@ -36,7 +36,7 @@ public class RegistroVoluntarioServlet extends HttpServlet {
         request.setAttribute("disponibilidades", Disponibilidad.values());
         request.setAttribute("experiencias", Experiencia.values());
 
-        request.getRequestDispatcher("registroVoluntario.jsp").forward(request, response);
+        response.sendRedirect("registroVoluntario.jsp");
     }
 
     @Override

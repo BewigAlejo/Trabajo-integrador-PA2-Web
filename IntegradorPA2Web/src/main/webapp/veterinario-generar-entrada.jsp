@@ -4,21 +4,56 @@
     Gato g = (Gato) request.getAttribute("gato");
 %>
 
-<h2>Generar Tratamiento</h2>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Generar Consulta Médica</title>
+    <link href="css/styles.css" rel="stylesheet">
+</head>
 
-<p>Gato seleccionado: <b><%= g.getNombre() %></b></p>
+<body class="sb-nav-fixed">
 
-<form action="VeterinarioGenerarEntradaServlet" method="post">
-    <input type="hidden" name="gatoId" value="<%= g.getId() %>">
+<jsp:include page="partials/navbar-veterinario.jsp"/>
+<div id="layoutSidenav">
+<jsp:include page="partials/sidebar-veterinario.jsp"/>
 
-    Diagnóstico:<br>
-    <textarea name="diagnostico" required></textarea><br><br>
+<div id="layoutSidenav_content">
+<main class="container-fluid px-4">
 
-    Tratamiento:<br>
-    <textarea name="tratamiento" required></textarea><br><br>
+    <h1 class="mt-4">Consulta Médica</h1>
+    <p class="lead">Gato seleccionado: <strong><%= g.getNombre() %></strong></p>
 
-    <button type="submit">Guardar</button>
-</form>
+    <div class="card shadow-sm col-md-8 mx-auto">
+        <div class="card-header bg-info text-white">
+            <i class="fas fa-file-medical"></i> Registrar diagnóstico
+        </div>
 
-<br>
-<a href="VeterinarioConsultaServlet">Volver</a>
+        <div class="card-body">
+
+            <form action="VeterinarioGenerarEntradaServlet" method="post">
+                <input type="hidden" name="gatoId" value="<%= g.getId() %>">
+
+                <label class="form-label">Diagnóstico:</label>
+                <textarea name="diagnostico" class="form-control" required></textarea>
+
+                <label class="form-label mt-3">Tratamiento:</label>
+                <textarea name="tratamiento" class="form-control" required></textarea>
+
+                <button class="btn btn-success mt-4 w-100">Guardar</button>
+            </form>
+
+        </div>
+    </div>
+
+    <a href="VeterinarioConsultaServlet" class="btn btn-secondary mt-3">Volver</a>
+
+</main>
+
+<footer class="py-4 bg-light mt-auto text-center">Colonia de Gatos © 2025</footer>
+</div>
+
+</div>
+
+</body>
+</html>
