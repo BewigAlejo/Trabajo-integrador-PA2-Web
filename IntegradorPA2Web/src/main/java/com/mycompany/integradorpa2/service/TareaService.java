@@ -19,6 +19,40 @@ public class TareaService {
     private final VoluntarioDAO voluntarioDao = new VoluntarioDAOJpa();
     private final GatoDAO gatoDao = new GatoDAOJpa();
     private final ZonaDAO zonaDao = new ZonaDAOJpa();
+    
+    
+    public void crearTarea(int voluntarioId,
+                        Long gatoId,
+                        String tipo,
+                        String descripcion) {
+
+     Tarea t = new Tarea();
+     t.setTipoTarea(TipoTarea.valueOf(tipo));
+     t.setDescripcion(descripcion);
+     t.setEstadoTarea(EstadoTarea.PENDIENTE);
+     t.setFecha(new Date());
+
+     Voluntario v = voluntarioDao.buscarPorId(voluntarioId).orElse(null);
+     t.setAsignadaA(v);
+
+     Gato g = gatoDao.buscarPorId(gatoId).orElse(null);
+     t.setGato(g);
+
+     tareaDao.crear(t);
+ }
+
+ 
+
+    public List<Gato> listarGatos() {
+        return gatoDao.listarTodos();
+    }
+    
+    public Optional<Tarea> buscarPorId(Long id) {
+        return tareaDao.buscarPorId(id);
+    }
+    
+    
+
 
     public Tarea registrarTareaRealizada(
             Integer voluntarioId,

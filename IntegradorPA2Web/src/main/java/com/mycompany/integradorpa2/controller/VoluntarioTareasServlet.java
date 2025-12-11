@@ -1,9 +1,7 @@
 package com.mycompany.integradorpa2.controller;
 
-import com.mycompany.integradorpa2.logica.Voluntario;
 import com.mycompany.integradorpa2.logica.Tarea;
 import com.mycompany.integradorpa2.service.TareaService;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
@@ -20,30 +18,59 @@ public class VoluntarioTareasServlet extends HttpServlet {
             throws ServletException, IOException {
 
         String action = req.getParameter("action");
-        if (action == null) action = "menu";
 
-        switch (action) {
+        // === Mostrar menú de tareas ===
+        if (action == null || action.equals("menu")) {
 
-            case "menu":
-                req.getRequestDispatcher("voluntario-tareas.jsp").forward(req, resp);
-                break;
+            List<Tarea> tareas = tareaService.listarTodas();
+            req.setAttribute("tareas", tareas);
 
-            case "listar":
-                listarTareas(req, resp);
-                break;
+            req.getRequestDispatcher("voluntario-tareas.jsp")
+                    .forward(req, resp);
+            return;
+        }
 
-            default:
-                req.getRequestDispatcher("voluntario-tareas.jsp").forward(req, resp);
+        // === Seleccionar gato para nueva tarea ===
+        if (action.equals("seleccionarGato")) {
+
+            req.setAttribute("gatos", tareaService.listarGatos());
+            req.getRequestDispatcher("voluntario-seleccionar-gato.jsp")
+                    .forward(req, resp);
+            return;
+        }
+
+        // === Registrar una nueva tarea ===
+        if (action.equals("nueva")) {
+            req.getRequestDispatcher("voluntario-registrar-tarea.jsp")
+                    .forward(req, resp);
         }
     }
 
-    private void listarTareas(HttpServletRequest req, HttpServletResponse resp)
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
-        Voluntario vol = (Voluntario) req.getSession().getAttribute("usuarioLogueado");
-        List<Tarea> tareas = tareaService.listarPorVoluntario(vol.getId());
+        String action = req.getParameter("action");
 
-        req.setAttribute("tareas", tareas);
-        req.getRequestDispatcher("voluntario-tareas.jsp").forward(req, resp);
+        if ("guardarTarea".equals(action)) {
+
+            int voluntarioId =
+                    ((com.mycompany.integradorpa2.logica.Voluntario)
+                            req.getSession().getAttribute("usuarioLogueado"))
+                            .getId();
+
+            Long gatoId = Long.parseLong(req.getParameter("gatoId"));
+            String descripcion = req.getParameter("descripcion");
+            String tipo = req.getParameter("tipo");
+
+            tareaService.crearTarea(
+                    voluntarioId,
+                    gatoId,
+                    tipo,
+                    descripcion
+            );
+
+            resp.sendRedirect("VoluntarioTareasServlet?action=menu");
+        }
     }
 }
